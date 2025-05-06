@@ -138,9 +138,8 @@ export default {
   data() {
     return {
       fields: [
-        { key: "id", label: "ID" },
-        { key: "name", label: "NAMA" },
         { key: "image", label: "GAMBAR" },
+        { key: "name", label: "NAMA Kategori" },
         { key: "actions", label: "AKSI" },
       ],
 
@@ -159,12 +158,15 @@ export default {
     // search
     let search = query.q ? query.q : "";
 
-    const categories = await $axios.get(
+    const categories = await $axios.$get(
       `/api/admin/categories?q=${search}&page=${page}`
     );
+
+    console.log(categories.data.data); 
+    
     return {
-      categories: categories.data.data,
-      pagination: categories.data,
+      'categories': categories.data.data,
+      'pagination': categories.data,
     };
   },
 
