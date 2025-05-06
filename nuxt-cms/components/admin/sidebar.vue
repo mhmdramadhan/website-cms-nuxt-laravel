@@ -26,10 +26,10 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <nuxt-link :to="{ name: 'admin-category' }" class="nav-link">
           <i class="nav-icon fas fa-folder"></i>
           <p>Categories</p>
-        </a>
+        </nuxt-link>
       </li>
 
       <li class="nav-item">
