@@ -1,0 +1,40 @@
+Nuxt JS
+
+installasi :
+- npx create-nuxt-app@4.0.0 nuxt-cms
+
+tambahkan pada nuxt.config.js (konfigurasi SSR dan Target Deployment)
+ // target Deployment
+  target: 'server',
+
+  // SSR
+  ssr: true,
+  
+Autentikasi menggunakan Nuxt Auth :
+- npm install @nuxtjs/auth-next@5.0.0-1648802546.c9880dc
+- tambahkan nuxt auth di konfigurasi modules (nuxt.config.js) : @nuxtjs/auth-next
+- konfigurasi nuxt auth di nuxt.config.js
+
+Instalasi module Nuxt vue Multiselect (untuk manajemen tag saat proses tambah,edit data post) :
+- npm install nuxt-multiselect@1.0.1
+- tambahkan tag pada modules (nuxt.config.js) : nuxt-multiselect
+
+Instalisasi module Sweet alert2 : 
+- npm install vue-sweetalert2@4.2.1
+- tambahkan tag pada modules : vue-sweetalert2/nuxt
+
+Instalisasi Module CKeditor Nuxt : 
+- npm install @blowstack/ckeditor-nuxt@0.6.0
+
+jika menggunakan template :
+- Tambahkan CSS dan Javascript pada template ke folder assets
+
+Konfigurasi Global Assets di Nuxt js (nuxt.config.js) :
+- tambahkan konfigurasi pada tag (head) - untuk javascript
+- tambahkan konfigurasi pada tag (css) - untuk css
+
+Membuat page layouting :
+- tambahkan file auth.vue pada folder layouts (layout login)
+- dan keperluan layout lainnya
+
+
