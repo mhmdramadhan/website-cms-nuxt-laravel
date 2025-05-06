@@ -41,10 +41,12 @@
               <input
                 type="text"
                 class="form-control"
+                v-model="search"
+                @keypress.enter="searchData"
                 placeholder="cari berdasarkan nama tag"
               />
               <div class="input-group-append">
-                <button class="btn btn-info">
+                <button @click="searchData" class="btn btn-info">
                   <i class="fa fa-search"></i>
                   CARI
                 </button>
@@ -61,6 +63,15 @@
             :fields="fields"
             show-empty
           >
+            <template v-slot:cell(actions)="row">
+              <b-button
+                variant="danger"
+                size="sm"
+                @click="deleteTag(row.item.id)"
+              >
+                <i class="fas fa-trash"></i>
+              </b-button>
+            </template>
           </b-table>
 
           <!-- pagination -->
@@ -132,21 +143,28 @@ export default {
           tdClass: "text-center",
         },
       ],
+
+      // search
+      search: "",
     };
   },
 
   //   mengambil nilai dari URL yng memiliki parameter bernama page
-  watchQuery: ["page"],
+  watchQuery: ["q", "page"],
 
   async asyncData({ $axios, query }) {
     // page
     let page = query.page ? parseInt(query.page) : "";
 
+    // search
+    let search = query.q ? query.q : "";
+
     // fetching data tags
-    const tags = await $axios.get(`/api/admin/tags?page=${page}`);
+    const tags = await $axios.$get(`/api/admin/tags?q=${search}&page=${page}`);
+
     return {
-      tags: tags.data.data,
-      pagination: tags.data,
+      'tags': tags.data.data,
+      'pagination': tags.data,
     };
   },
 
@@ -159,6 +177,50 @@ export default {
           page: page,
         },
       });
+    },
+
+    searchData() {
+      this.$router.push({
+        path: this.$route.path,
+        query: {
+          q: this.search,
+        },
+      });
+    },
+
+    // delete tag
+    deleteTag(id) {
+      this.$swal
+        .fire({
+          title: "Hapus Tag",
+          text: "Apakah anda yakin ingin menghapus tag ini?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Ya, hapus!",
+          cancelButtonText: "Tidak, batalkan!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$axios
+              .delete(`/api/admin/tags/${id}`)
+              .then(() => {
+                // refresh data
+                this.$nuxt.refresh();
+
+                // alert
+                this.$swal.fire({
+                  title: "Berhasil!",
+                  text: "Tag berhasil dihapus.",
+                  icon: "success",
+                  showCancelButton: false,
+                  timer: 1500,
+                });
+              })
+              .catch(() => {
+                this.$swal.fire("Gagal!", "Tag gagal dihapus.", "error");
+              });
+          }
+        });
     },
   },
 };
