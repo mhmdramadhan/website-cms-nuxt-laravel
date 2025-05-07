@@ -71,6 +71,16 @@
             </template>
             <template v-slot:cell(actions)="row">
               <b-button
+                :to="{
+                  name: 'admin-category-edit-id',
+                  params: { id: row.item.id },
+                }"
+                size="sm"
+                variant="warning"
+              >
+                <i class="fas fa-edit"></i>
+              </b-button>
+              <b-button
                 variant="danger"
                 size="sm"
                 @click="deleteTag(row.item.id)"
@@ -162,11 +172,11 @@ export default {
       `/api/admin/categories?q=${search}&page=${page}`
     );
 
-    console.log(categories.data.data); 
-    
+    console.log(categories.data.data);
+
     return {
-      'categories': categories.data.data,
-      'pagination': categories.data,
+      categories: categories.data.data,
+      pagination: categories.data,
     };
   },
 
