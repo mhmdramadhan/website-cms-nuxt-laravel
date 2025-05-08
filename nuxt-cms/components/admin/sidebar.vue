@@ -51,10 +51,10 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <nuxt-link :to="{ name: 'admin-slider' }" class="nav-link">
           <i class="nav-icon fas fa-image"></i>
           <p>Sliders</p>
-        </a>
+        </nuxt-link>
       </li>
 
       <li class="nav-item">
