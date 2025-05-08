@@ -33,10 +33,10 @@
       </li>
 
       <li class="nav-item">
-        <a href="#" class="nav-link">
+        <nuxt-link :to="{ name: 'admin-posts' }" class="nav-link">
           <i class="nav-icon fas fa-book-open"></i>
           <p>Posts</p>
-        </a>
+        </nuxt-link>
       </li>
 
       <li class="nav-header">
