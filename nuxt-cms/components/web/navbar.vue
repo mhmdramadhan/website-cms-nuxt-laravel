@@ -32,12 +32,18 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-form-input
+              v-model="search"
+              @keypress.enter="searchData"
               size="sm"
               class="mr-sm-2 border-0"
               placeholder="tulis kata kunci..."
             >
             </b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" variant="primary"
+            <b-button
+              @click="searchData"
+              size="sm"
+              class="my-2 my-sm-0"
+              variant="primary"
               >CARI</b-button
             >
           </b-navbar-nav>
@@ -46,14 +52,17 @@
     </b-navbar>
   </div>
 </template>
-  
-  <script>
+
+<script>
 export default {
   //data function
   data() {
     return {
       //state menus
       menus: [],
+
+      //state search
+      search: "",
     };
   },
 
@@ -64,8 +73,19 @@ export default {
       this.menus = response.data.data;
     });
   },
+
+  methods: {
+    searchData() {
+      this.$router.push({
+        name: "search",
+        query: {
+          q: this.search,
+        },
+      });
+    },
+  },
 };
 </script>
-  
-  <style>
+
+<style>
 </style>
